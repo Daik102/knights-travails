@@ -1,1 +1,1 @@
-# knights-travails
+This is knights travails project for the Odin Project.
