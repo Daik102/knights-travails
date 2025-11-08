@@ -2,7 +2,7 @@
 
 function knightMoves(start, target) {
   let step = 0;
-  let queue = [{ location: start, step }];
+  const queue = [{ location: start, step }];
   const visited = [{ location: start, step }];
   const indexArray = [1, 2, 2, 1, -1, -2, -2, -1];
   const indexArrayTwo = [2, 1, -1, -2, -2, -1, 1, 2];
@@ -14,8 +14,7 @@ function knightMoves(start, target) {
 
         for (let i = step - 1; i > 0; i--) {
           for (let j = 0; j < indexArray.length; j++) {
-            const current = paths[0];
-            const square = [current[0] + indexArray[j], current[1] + indexArrayTwo[j]];
+            const square = [paths[0] + indexArray[j], paths[0] + indexArrayTwo[j]];
 
             for (let k = 0; k < visited.length; k++) {
               const visitedSquare = visited[k].location;
