@@ -11,15 +11,15 @@ function knightMoves(start, target) {
       if (queue[i].square[0] === target[0] && queue[i].square[1] === target[1]) {
         const paths = [target];
 
-        for (let i = step - 1; i > 0; i--) {
-          for (let j = 0; j < indexArray.length; j++) {
-            const square = [paths[0][0] + indexArray[j][0], paths[0][1] + indexArray[j][1]];
+        for (let j = step - 1; j > 0; j--) {
+          for (let k = 0; k < indexArray.length; k++) {
+            const square = [paths[0][0] + indexArray[k][0], paths[0][1] + indexArray[k][1]];
             
-            for (let k = 0; k < visited.length; k++) {
-              const visitedSquare = visited[k].square;
-              const visitedStep = visited[k].step;
+            for (let l = 0; l < visited.length; l++) {
+              const visitedSquare = visited[l].square;
+              const visitedStep = visited[l].step;
             
-              if (visitedStep === i && square[0] === visitedSquare[0] && square[1] === visitedSquare[1]) {
+              if (visitedStep === j && square[0] === visitedSquare[0] && square[1] === visitedSquare[1]) {
                 paths.unshift(square);
                 break;
               }
@@ -38,17 +38,18 @@ function knightMoves(start, target) {
       }
     }
 
-    const length = queue.length;
     step += 1;
     
-    for (let i = 0; i < length; i++) {
-      for (let j = 0; j < indexArray.length; j++) {
-        const current = queue[i].square;
-        const square = [current[0] + indexArray[j][0], current[1] + indexArray[j][1]];
+    while (step - 1 === queue[0].step) {
+      const current = queue[0].square;
+      queue.shift();
+
+      for (let i = 0; i < indexArray.length; i++) {
+        const square = [current[0] + indexArray[i][0], current[1] + indexArray[i][1]];
         let alreadyVisited;
         
-        for (let k = 0; k < visited.length; k++) {
-          const visitedSquare = visited[k].square;
+        for (let j = 0; j < visited.length; j++) {
+          const visitedSquare = visited[j].square;
 
           if (square[0] === visitedSquare[0] && square[1] === visitedSquare[1]) {
             alreadyVisited = true;
@@ -60,10 +61,6 @@ function knightMoves(start, target) {
           visited.push({ square, step });
         }
       }
-    }
-    
-    for (let i = 0; i < length; i++) {
-      queue.shift();
     }
   }
 }
